@@ -1,0 +1,76 @@
+<div class="ui grid">
+
+  <div class="ui three column row">
+    <div class="column"></div>
+    <!-- Cash Drawer Info Collection -->
+    <div class="column" *ngIf="!calculated" > 
+      
+      <!-- Cash Drawer Form -->
+      <form #cashDrawer="ngForm" (ngSubmit)="onSubmit(f)" class="ui form">
+        <!-- Cash Drawer 2 -->
+  <h4 class="ui dividing header">Cash Drawer Contents</h4>
+    <label>Loose Change</label>
+      <div class="field">
+        <input type="text" ngModel name="looseQuarters" placeholder="# of Quarters">
+      </div>
+      <div class="field">
+      <input type="text" ngModel name="looseDimes" placeholder="# of Dimes">
+    </div>
+      <div class="field">
+      <input type="text" ngModel name="looseNickels" placeholder="# of Nickels">
+    </div>
+      <div class="field">
+      <input type="text" ngModel name="loosePennies" placeholder="# of Pennies">
+    </div>
+
+    <label>Coin Rolls</label>
+    <div class="field">
+      <input type="text" ngModel name="quarterRoll" placeholder="# of Quarter Rolls">
+    </div>
+    <div class="field">
+      <input type="text" ngModel name="dimeRoll" placeholder="# of Dime Rolls">
+    </div>
+    <div class="field">
+      <input type="text" ngModel name="nickelRoll" placeholder="# of Nickel Rolls">
+    </div>
+    <div class="field">
+      <input type="text" ngModel name="pennyRoll" placeholder="# of Penny Rolls">
+    </div>
+
+    <label>Small Bills in Drawer</label>
+    <div class="field">
+      <input type="text" ngModel name="looseFives" placeholder="# of $5 Bills">
+    </div>
+    <div class="field">
+      <input type="text" ngModel name="looseOnes" placeholder="# of $1 Bills">
+    </div>
+
+
+<div class="spacer25"></div>
+  <!-- Submit button -->
+    
+    <div class="ui error message" [hidden]="!drawerIsUnder">
+      <i class="exclamation triangle icon"></i>
+      <div class="header">You are Under By {{drawerUnderBy | currency}}</div>
+  
+    </div>
+
+<div class="ui eight wide field left action input">
+  <button type="button" class="ui teal button" (click)="calculateCash(cashDrawer)" >
+    Calculate
+  </button>
+  <input type="text" [value]="drawerTotal | currency">
+</div>
+</form>
+
+<!-- End of form -->
+    </div>  
+
+    <!-- <div class="column" *ngIf="calculated">
+      <h1>{{drawerTotal}}</h1>
+    </div>
+    <div class="column"></div>
+  </div> -->
+ 
+</div>
+
