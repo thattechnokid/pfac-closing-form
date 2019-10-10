@@ -45,6 +45,7 @@ export class AppComponent {
     //======= Under/Over Numbers ======
     drawerUnderBy:number = 0.00;
     drawerOverBy:number = 0.00;
+    drawerIsOkay: boolean = false;
 
 
 
@@ -82,12 +83,23 @@ export class AppComponent {
     if (this.drawerTotal < 150.00) {
       this.drawerIsUnder = true;
       this.drawerIsOver = false;
+      this.drawerIsOkay = false;
       this.drawerUnderBy = (150.00 - this.drawerTotal);
       
-    } else {
-      
+    } else if (this.drawerTotal > 150.00){
+      this.drawerIsUnder = false;
+      this.drawerIsOver = true;
+      this.drawerIsOkay = false;
+      this.drawerOverBy = (this.drawerTotal - 150.00);
+    } else if (this.drawerTotal = 150.00){
+      this.drawerIsUnder = false;
+      this.drawerIsOver = false;
+      this.drawerIsOkay = true;
     }
 
+  }
+  resetValues(){
+    location.reload();
   }
 
 
