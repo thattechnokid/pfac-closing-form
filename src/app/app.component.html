@@ -1,48 +1,48 @@
-<div class="ui grid">
+<div class="ui grid" *ngIf="!showDocument">
 
-  <div class="ui three column row">
+  <div class="ui three column row" >
     <div class="column"></div>
     <!-- Cash Drawer Info Collection -->
-    <div class="column" *ngIf="!calculated" > 
+    <div class="column" *ngIf="!isClosing" > 
       
       <!-- Cash Drawer Form -->
       <form #cashDrawer="ngForm" class="ui form">
         <!-- Cash Drawer 2 -->
-  <h4 class="ui dividing header">Cash Drawer Contents</h4>
+  <h2 class="ui dividing header">Cash Drawer Contents</h2>
     <label>Loose Change</label>
       <div class="field">
-        <input type="text" ngModel name="looseQuarters" placeholder="# of Quarters">
+        <input type="tel" ngModel name="looseQuarters" placeholder="# of Quarters">
       </div>
       <div class="field">
-      <input type="text" ngModel name="looseDimes" placeholder="# of Dimes">
+      <input type="tel" ngModel name="looseDimes" placeholder="# of Dimes">
     </div>
       <div class="field">
-      <input type="text" ngModel name="looseNickels" placeholder="# of Nickels">
+      <input type="tel" ngModel name="looseNickels" placeholder="# of Nickels">
     </div>
       <div class="field">
-      <input type="text" ngModel name="loosePennies" placeholder="# of Pennies">
+      <input type="tel" ngModel name="loosePennies" placeholder="# of Pennies">
     </div>
 
     <label>Coin Rolls</label>
     <div class="field">
-      <input type="text" ngModel name="quarterRoll" placeholder="# of Quarter Rolls">
+      <input type="tel" ngModel name="quarterRoll" placeholder="# of Quarter Rolls">
     </div>
     <div class="field">
-      <input type="text" ngModel name="dimeRoll" placeholder="# of Dime Rolls">
+      <input type="tel" ngModel name="dimeRoll" placeholder="# of Dime Rolls">
     </div>
     <div class="field">
-      <input type="text" ngModel name="nickelRoll" placeholder="# of Nickel Rolls">
+      <input type="tel" ngModel name="nickelRoll" placeholder="# of Nickel Rolls">
     </div>
     <div class="field">
-      <input type="text" ngModel name="pennyRoll" placeholder="# of Penny Rolls">
+      <input type="tel" ngModel name="pennyRoll" placeholder="# of Penny Rolls">
     </div>
 
     <label>Small Bills in Drawer</label>
     <div class="field">
-      <input type="text" ngModel name="looseFives" placeholder="# of $5 Bills">
+      <input type="tel" ngModel name="looseFives" placeholder="# of $5 Bills">
     </div>
     <div class="field">
-      <input type="text" ngModel name="looseOnes" placeholder="# of $1 Bills">
+      <input type="tel" ngModel name="looseOnes" placeholder="# of $1 Bills">
     </div>
 
 
@@ -83,24 +83,191 @@
   <button type="button" class="ui teal button" (click)="calculateCash(cashDrawer)" >
     Calculate
   </button>
-  <input type="text" [value]="drawerTotal | currency">
+  <input type="tel" [value]="drawerTotal | currency">
 </div>
       </form>
 
 <!-- End of form -->
     </div>  
 
-    <!-- <div class="column" *ngIf="calculated">
-      <h1>{{drawerTotal}}</h1>
-    </div> -->
-    <div class="column ">
+    <!-- Closing Time Column -->
+    <div class="column" *ngIf="isClosing && !countCash">
+      <!-- Closing Form One -->
+      <form #closingFormOne="ngForm" class="ui form">
+        <h2 class="ui dividing header">End of Day Closing Form</h2>
+        <label>Calculate Total Amount Tendered</label>
+        <div class="field">
+          <input type="tel" ngModel name="totalSales" placeholder="Grand Total">
+        </div>
+        <div class="field">
+          <input type="tel" ngModel name="driverCommissions" placeholder="Driver Fees">
+        </div>
+        <div class="field">
+          <input type="tel" ngModel name="paidIns" placeholder="Paid Ins">
+        </div>
+        <div class="field">
+          <input type="tel" ngModel name="paidOuts" placeholder="Paid Outs">
+        </div>
+        <div class="field">
+          <input type="tel" ngModel name="giftCertSold" placeholder="Gift Cert. Sold">
+        </div>
+      
+        <label>Calculate Total Deposit</label>
+        <div class="two fields">
+          <div class="field">
+            <input type="tel" ngModel name="ccBatchOne" placeholder="Credit Card Batch #1">
+          </div>
+          <div class="field">
+            <input type="tel" ngModel name="ccBatchTwo" placeholder="Credit Card Batch #2">
+          </div>
+        </div>
+        <div class="field">
+          <input type="tel" ngModel name="houseAccounts" placeholder="House Accounts">
+        </div>
+        <div class="field">
+          <input type="tel" ngModel name="checksBatch" placeholder="Checks (Use Batch)">
+        </div>
+        <div class="field">
+          <input type="tel" ngModel name="purchaseOrders" placeholder="Purchase Orders">
+        </div>
+        <div class="field">
+          <input type="tel" ngModel name="giftCertRecd" placeholder="Gift Cert. Received">
+        </div>
+        
+      
+      
+        <div class="spacer25"></div>
+        <!-- Submit button -->
+    <div class="ui animated blue button" (click)="calculateDeposit(closingFormOne)" tabindex="0">
+      <div class="visible content">Next</div>
+      <div class="hidden content">
+        <i class="right arrow icon"></i>
+      </div>
+    </div>
+      </form>
+
+    </div>
+
+    <!-- Count Cash Form -->
+    <div class="column" *ngIf="countCash">
+      <!-- Closing Form Two -->
+      <form #closingFormTwo="ngForm" class="ui form">
+        <h2 class="ui dividing header">Count Your Remaining Cash</h2>
+        <label>Calculate if You Are Short/Over/Broke Even</label>
+        <div class="two fields">
+          <div class="field">
+          <input type="tel" ngModel name="countedHundy" placeholder="# of 100's Counted">
+          </div>
+          <div class="field">
+            <input type="tel" ngModel name="countedFifty" placeholder="# of 50's Counted">
+          </div>
+        </div>
+       
+        <div class="two fields">
+          <div class="field">
+            <input type="tel" ngModel name="countedTwenty" placeholder="# of 20's Counted">
+          </div>
+          <div class="field">
+            <input type="tel" ngModel name="countedTen" placeholder="# of 10's Counted">
+          </div>
+        </div>
+
+        <div class="two fields">
+          <div class="field">
+            <input type="tel" ngModel name="countedFive" placeholder="# of 5's Counted">
+          </div>
+          <div class="field">
+            <input type="tel" ngModel name="countedOne" placeholder="# of 1's Counted">
+          </div>
+        </div>
+        
+        
+    
+    
+    
+        <div class="spacer25"></div>
+        <!-- Submit button -->
+        <button class="ui labeled icon blue button" type="button" (click)="finish(closingFormTwo)" >
+          <i class="print icon"></i>
+          Generate Document
+        </button>
+      </form>
+    
+    </div>
+
+
+    <!-- Reset Form and Begin closing buttons -->
+    <div class="column" *ngIf="!isClosing">
       <div class="step-buttons ui buttons">
         <button class="ui button" (click)="resetValues()">Next Drawer</button>
         <div class="or"></div>
-        <button class="ui positive button" type="button">Begin Closing</button>
+        <button class="ui positive button" type="button" (click)="beginClosing()">Begin Closing</button>
       </div>
     </div>
   </div>
- 
-</div>
+  <!-- End of forms -->
 
+</div>
+<div class="document" *ngIf="showDocument">
+
+      <div>
+        
+        <div style="position:absolute;left:181.00px;top:70.00px" class="cls_002"><span class="cls_002">End of Day Report
+            Checklist</span></div>
+        <div style="position:absolute;left:76.00px;top:121.00px" class="cls_003"><span class="cls_003">What are my
+            sales? </span><span class="cls_006"> {{totalSales | currency}}</span></div>
+        <div style="position:absolute;left:376.47px;top:123.00px" class="cls_003"><span class="cls_003">Grand Total
+            (from recap)</span></div>
+        <div style="position:absolute;left:76.00px;top:157.00px" class="cls_003"><span class="cls_003">How do I find out
+            what my deposit should be?</span></div>
+        <div style="position:absolute;left:76.00px;top:206.00px" class="cls_003"><span class="cls_003">Grand Total
+            =</span></div>
+        <div style="position:absolute;left:184.00px;top:206.00px" class="cls_007"><span class="cls_007">{{totalSales | currency}}</span></div>
+        <div style="position:absolute;left:399.99px;top:206.00px" class="cls_003"><span class="cls_003">(Your
+            Sales)</span></div>
+        <div style="position:absolute;left:76.00px;top:239.00px" class="cls_003"><span class="cls_003">( - ) Driver Fees
+            = </span><span class="cls_007">{{driverCommissions | currency}}</span></div>
+        <div style="position:absolute;left:364.00px;top:241.00px" class="cls_003"><span class="cls_003">(Driver
+            Commissions)</span></div>
+        <div style="position:absolute;left:76.00px;top:274.00px" class="cls_003"><span class="cls_003">(+) Paid Ins
+            =</span></div>
+        <div style="position:absolute;left:187.12px;top:274.00px" class="cls_007"><span class="cls_007">{{paidIns | currency}}</span>
+        </div>
+        <div style="position:absolute;left:400.00px;top:274.00px" class="cls_003"><span class="cls_003">(Pay Ins)</span>
+        </div>
+        <div style="position:absolute;left:76.00px;top:308.00px" class="cls_003"><span class="cls_003">( - ) Paid Outs =
+          </span><span class="cls_007">{{paidOuts | currency}}</span></div>
+        <div style="position:absolute;left:400.00px;top:308.00px" class="cls_003"><span class="cls_003">(Pay
+            Outs)</span></div>
+        <div style="position:absolute;left:76.00px;top:341.00px" class="cls_003"><span class="cls_003">(+) Gift Cert.
+            Sold = </span><span class="cls_007">{{giftCertSold | currency}}</span></div>
+        <div style="position:absolute;left:400.00px;top:341.00px" class="cls_003"><span class="cls_003">(Certificates
+            Sold)</span></div>
+        <div style="position:absolute;left:76.00px;top:387.00px" class="cls_003"><span class="cls_003">Total Amount
+            Tendered = </span><span class="cls_006">{{subTotal | currency}}</span></div>
+        <div style="position:absolute;left:76.00px;top:437.00px" class="cls_003"><span class="cls_003">Credit Cards,
+            House Accounts, Gift Cards, etc. brought back must be subtracted</span></div>
+        <div style="position:absolute;left:76.00px;top:470.00px" class="cls_003"><span class="cls_003">Total (From
+            Above) = </span><span class="cls_007">{{subTotal | currency}}</span></div>
+        <div style="position:absolute;left:76.00px;top:500.00px" class="cls_003"><span class="cls_003">( - ) Credit
+            Cards (Use Batch) = </span><span class="cls_007">{{ccBatchTotal | currency}}</span></div>
+        <div style="position:absolute;left:76.00px;top:532.00px" class="cls_003"><span class="cls_003">( - ) House
+            Accounts = </span><span class="cls_007">{{houseAccounts | currency}}</span></div>
+        <div style="position:absolute;left:76.00px;top:563.00px" class="cls_003"><span class="cls_003">( - ) Checks =
+          </span><span class="cls_007">{{checksBatch | currency}}</span></div>
+        <div style="position:absolute;left:76.00px;top:594.00px" class="cls_003"><span class="cls_003">( - ) Purchase
+            Orders = </span><span class="cls_007">{{purchaseOrders | currency}}</span></div>
+        <div style="position:absolute;left:76.00px;top:636.00px" class="cls_004"><span class="cls_004">Total Cash
+            Deposit</span><span class="cls_003"> = </span><span class="cls_006">{{totalDeposit | currency}}</span></div>
+        <div style="position:absolute;left:76.00px;top:679.00px" class="cls_003"><span class="cls_003">Total Money
+            Counted = </span><span class="cls_007">{{totalMoneyCounted | currency}}</span></div>
+        <div style="position:absolute;left:76.00px;top:712.00px" class="cls_003"><span class="cls_003">Short/Over =
+          </span>
+          <span class="cls_007"*ngIf="depositUnder">- {{shortOverEven | currency}}</span>
+          <span class="cls_007"*ngIf="depositOver">+ {{shortOverEven | currency}}</span>
+          <span class="cls_007"*ngIf="depositOkay">{{shortOverEven | currency}}</span>
+        </div>
+      </div>
+
+
+  </div>

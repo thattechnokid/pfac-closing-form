@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+@media print {
+  body {
+    transform: scale(1.2);
+    position: fixed;
+    // transform:translate(-50%,-50%);
+    top: 10%;
+    left: 10%;
+  }
+}
