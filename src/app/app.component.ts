@@ -188,7 +188,7 @@ this.ccBatchTotal = (this.ccBatchOne + this.ccBatchTwo);
     this.totalMoneyCounted = (this.countedHundy * 100) + (this.countedFifty * 50) + (this.countedTwenty * 20) + (this.countedTen * 10) + (this.countedFive * 5)+ (this.countedOne * 1);
 
     if (this.totalMoneyCounted < this.totalDeposit) {
-        this.shortOverEven = (this.totalMoneyCounted - this.totalDeposit);
+        this.shortOverEven = (this.totalDeposit - this.totalMoneyCounted);
         this.depositUnder = true
         
     } else if(this.totalMoneyCounted > this.totalDeposit){
