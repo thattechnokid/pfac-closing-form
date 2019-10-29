@@ -169,8 +169,9 @@ export class AppComponent {
     this.giftCertRecd = closingFormOne.form.get('giftCertRecd').value;
 
     // ------ Total Deposit Calculated ------
-this.ccBatchTotal = (this.ccBatchOne + this.ccBatchTwo);
-
+this.ccBatchTotal = (this.ccBatchOne*1) + (this.ccBatchTwo*1);
+    console.log(this.ccBatchOne, this.ccBatchTwo, this.ccBatchTotal);
+  
     this.totalDeposit = (this.subTotal - (this.ccBatchTotal) - this.houseAccounts - this.checksBatch - this.purchaseOrders - this.giftCertRecd);
 
     this.countCash = true;
